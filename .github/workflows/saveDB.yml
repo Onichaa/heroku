@@ -1,21 +1,24 @@
-name: Save mywabot.db
+name: Auto-save wywabot.db
+
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '*/30 * * * *' # Trigger every 30 minutes
+    
 jobs:
-  save:
+  auto-save:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 
-      - name: Save mywabot.db
-        run: |
-          echo "mywabot.db content" > mywabot.db
-          git config --local user.email "mustakimhasri@gmail.com"
-          git config --local user.name "Onichaa"
-          git add mywabot.db
-          git commit -m "Add mywabot.db"
-          git push
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Backup wywabot.db
+      run: |
+        cp wywabot.db wywabot.db.bak
+    - name: Commit and push backup
+      run: |
+        git config --local user.email "mustakimhasri@gmail.com"
+        git config --local user.name "Onichaa"
+        git add wywabot.db.bak
+        git commit -m "Auto-save wywabot.db"
+        git push origin main # Change this to your repository's default branch

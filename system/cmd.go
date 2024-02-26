@@ -80,7 +80,7 @@ func Get(c *Nc, m *IMsg) {
 				continue
 			}
 
-			if m.IsBotAdmin && cmd.IsBotAdm {
+			if !m.IsBotAdmin && cmd.IsBotAdm {
 				m.Reply("Untuk menggunakan fitur ini, bot harus menjadi admin!!")
 				continue
 			}

@@ -1,0 +1,21 @@
+name: Save mywabot.db
+on:
+  push:
+    branches:
+      - main
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 
+      - name: Save mywabot.db
+        run: |
+          echo "mywabot.db content" > mywabot.db
+          git config --local user.email "mustakimhasri@gmail.com"
+          git config --local user.name "Onichaa"
+          git add mywabot.db
+          git commit -m "Add mywabot.db"
+          git push

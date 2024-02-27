@@ -14,6 +14,7 @@ func init() {
     Tags:   "download",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".fbdl https://www.facebook.com/huda.kurniawan.399/videos/746907964056789/?idorvanity=1066750060883536&mibextid=AQCFcj8imgClWYJ5",
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 

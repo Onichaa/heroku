@@ -14,6 +14,7 @@ func init() {
     Tags:   "tools",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".ss https://google.com",
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 

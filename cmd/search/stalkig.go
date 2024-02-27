@@ -17,6 +17,7 @@ func init() {
     Tags:   "search",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".igstalk vernalta",
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 

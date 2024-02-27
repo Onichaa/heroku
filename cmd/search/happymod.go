@@ -11,7 +11,7 @@ import (
 
 func init() {
   x.NewCmd(&x.ICmd{
-    Name:   "(happymod|mod)",
+    Name:   "(happymod|mod|apk)",
     Cmd:    []string{"happymod"},
     Tags:   "search",
     Prefix: true,

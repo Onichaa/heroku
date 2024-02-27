@@ -22,6 +22,7 @@ func init() {
     Tags:   "download",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".instagram https://www.instagram.com/reel/C3z2VSkxHkJ/?igsh=YzljYTk1ODg3Zg==",
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 

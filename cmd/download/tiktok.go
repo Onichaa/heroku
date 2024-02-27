@@ -21,6 +21,7 @@ func init() {
     Tags:   "download",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".tt https://vt.tiktok.com/ZSFk78cDv/",
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 

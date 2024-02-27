@@ -15,6 +15,7 @@ func init() {
     IsMedia: true,
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".smeme halooo",
     Exec: func(sock *x.Nc, m *x.IMsg) {
       m.React("⏱️")
 

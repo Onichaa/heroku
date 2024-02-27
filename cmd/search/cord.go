@@ -16,6 +16,7 @@ func init() {
     Tags:   "search",
     Prefix: true,
     IsQuery: true,
+    ValueQ: ".cord indonesia raya",
     Exec: func(sock *x.Nc, m *x.IMsg) {
        m.React("⏱️")
 

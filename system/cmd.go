@@ -65,7 +65,7 @@ func Get(c *Nc, m *IMsg) {
 			}
 
 			if cmd.IsQuery && m.Query == "" {
-				txt := fmt.Sprintf("Silahkan masukan query\n%s", cmd.ValueQ)
+				txt := fmt.Sprintf("Salah caranya ituu contohnya:\n%s", cmd.ValueQ)
 				m.Reply(txt)
 				continue
 			}

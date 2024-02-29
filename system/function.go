@@ -21,11 +21,58 @@ import (
   "mime/multipart"
   "io"
   "path/filepath"
+  lol "math/rand"
 
   "github.com/PuerkitoBio/goquery"
 	"github.com/nfnt/resize"
   
 )
+
+
+func Stiktele(query string) (map[string]interface{}, error) {
+  resp, err := http.Get(fmt.Sprintf("https://getstickerpack.com/stickers?query=%s", query))
+  if err != nil {
+    return nil, err
+  }
+  defer resp.Body.Close()
+
+  doc, err := goquery.NewDocumentFromReader(resp.Body)
+  if err !=nil {
+    return nil, err
+  }
+
+  links := []string{}
+  doc.Find("#stickerPacks > div > div:nth-child(3) > div > a").Each(func(i int, s *goquery.Selection) {
+    link, _ := s.Attr("href")
+    links = append(links, link)
+  })
+
+  randLink := links[lol.Intn(len(links))]
+  resp2, err := http.Get(randLink)
+  if err != nil {
+    return nil, err
+  }
+  defer resp2.Body.Close()
+
+  doc2, err := goquery.NewDocumentFromReader(resp2.Body)
+  if err != nil {
+    return nil, err
+  }
+
+  urls := []string{}
+  doc2.Find("#stickerPack > div > div.row > div > img").Each(func(i int, s *goquery.Selection) {
+    url, _ := s.Attr("src")
+    urls = append(urls, strings.Split(url, "&d=")[0])
+  })
+
+  return map[string]interface{}{
+    "creator": "Fajar Ihsana",
+    "title":   doc2.Find("#intro > div > div > h1").Text(),
+    "author":  doc2.Find("#intro > div > div > h5 > a").Text(),
+    "author_link": doc2.Find("#intro > div > div > h5 > a").AttrOr("href", ""),
+    "sticker": urls,
+  }, nil
+}
 
 func Instagram(URL string) ([]map[string]string, error) {
   client := &http.Client{}

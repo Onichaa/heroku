@@ -12,8 +12,8 @@ import (
 
 func init() {
   x.NewCmd(&x.ICmd{
-    Name:   "(turbogpt|gpt)",
-    Cmd:    []string{"gpt"},
+    Name:   "(turbogpt|gpt|ai)",
+    Cmd:    []string{"gpt", "ai"},
     Tags:   "ai",
      Prefix: true,
     IsQuery:  true,

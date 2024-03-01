@@ -5,10 +5,10 @@ import (
     "fmt"
     "net/http"
     "net/url"
-    "time"
+   // "time"
      "encoding/json"
     "io/ioutil"
-    "strconv"
+    //"strconv"
     "strings"
     //"os"
     "regexp"
@@ -30,7 +30,70 @@ func init() {
       return
       }  
 
+      regex := regexp.MustCompile(`(https?:\/\/[^\s]+)`)
+       newLink := regex.FindStringSubmatch(m.Query) 
 
+      
+
+type Result struct {
+	Status    bool   `json:"status"`
+	Code      int    `json:"code"`
+	Creator   string `json:"creator"`
+	Result    struct {
+		Author      string `json:"author"`
+		Status      string `json:"status"`
+		InfoVideo   struct {
+			Title       string `json:"title"`
+			Region      string `json:"region"`
+			Thumbnail   string `json:"thumbnail"`
+			Duration    int    `json:"duration"`
+			TotalDownload int `json:"total_download"`
+			TotalPlay   int `json:"total_play"`
+			TotalShare  int `json:"total_share"`
+			TotalComment int `json:"total_comment"`
+		} `json:"info_video"`
+		AuthorInfo struct {
+			Nickname string `json:"nickname"`
+			ID       string `json:"id"`
+			Profile  string `json:"profile"`
+		} `json:"author_info"`
+		URL struct {
+			Nowm  string `json:"nowm"`
+			Wm    string `json:"wm"`
+			Audio string `json:"audio"`
+		} `json:"url"`
+	} `json:"result"`
+}
+
+
+	url := "https://aemt.me/download/tikdl?url="+url.QueryEscape(newLink[0])
+	response, err := http.Get(url)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer response.Body.Close()
+
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	var result Result
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+      sock.SendVideo(m.From, result.Result.URL.Nowm, "", *m)
+	fmt.Println("Result:", result.Result.URL.Nowm)
+
+
+
+
+      /*
       type TikTokData struct {
       Creator       string `json:"creator"`
       Code          int    `json:"code"`
@@ -78,8 +141,7 @@ func init() {
       } `json:"data"`
       }
 
-      regex := regexp.MustCompile(`(https?:\/\/[^\s]+)`)
-      newLink := regex.FindStringSubmatch(m.Query) 
+     
 
       url := "https://skizo.tech/api/tiktok?url="+url.QueryEscape(newLink[0])+"&apikey=batu"//+os.Getenv("KEY")
 
@@ -143,6 +205,8 @@ func init() {
       }
       sock.SendVideo(m.From, bytes, teks, *m)
       }
+      */
+      
       
       m.React("✅")
     },

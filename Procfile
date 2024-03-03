@@ -1,1 +1,1 @@
-web: go run main.go
+worker: npm i -g pm2 && pm2 start "go run main.go" --attach

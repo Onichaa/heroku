@@ -1,1 +1,1 @@
-web: go run main.go
+web: go mod vendor && go run main.go

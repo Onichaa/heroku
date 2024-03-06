@@ -1,1 +1,1 @@
-web: go build -o main && ./main
+web: go build -o main --mod=mod && ./main
